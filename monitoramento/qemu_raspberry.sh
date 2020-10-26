@@ -1,0 +1,11 @@
+sudo qemu-system-arm \
+  -M versatilepb \
+  -cpu arm1176 \
+  -m 256 \
+  -drive "file=2020-08-20-raspios-buster-armhf-lite.img,if=none,index=0,media=disk,format=raw,id=disk0" \
+  -device "virtio-blk-pci,drive=disk0,disable-modern=on,disable-legacy=off" \
+  -net nic -net user -net tap,ifname=vnet0,script=no,downscript=no \
+  -dtb versatile-pb-buster-5.4.51.dtb \
+  -kernel kernel-qemu-5.4.51-buster \
+  -append 'root=/dev/vda2 panic=1' \
+  -no-reboot
